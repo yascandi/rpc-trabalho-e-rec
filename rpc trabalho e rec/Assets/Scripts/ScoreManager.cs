@@ -2,7 +2,7 @@ using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class PontuacaoManager : MonoBehaviourPunCallbacks
+public class ScoreManager : MonoBehaviourPunCallbacks
 {
     public void AdicionarPontuacao(Player player) // adiciona 1 ponto ao jogador
     {
