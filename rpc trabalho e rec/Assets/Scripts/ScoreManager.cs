@@ -18,5 +18,13 @@ public class PontuacaoManager : MonoBehaviourPunCallbacks
         propriedadePontuacao["Pontuacao"] = pontuacaoAtual;
         player.SetCustomProperties(propriedadePontuacao);
     }
+
+    public void ResetarPontuacao(Player player) // reseta a pontuação do jogador
+    {
+        // atualiza a pontuação no PhotonPun e avisa todo mundo, isso vai chamar o método OnPlayerPropertiesUpdate na classe PontuacaoUIController
+        Hashtable propriedadePontuacao = new Hashtable();
+        propriedadePontuacao["Pontuacao"] = 0;
+        player.SetCustomProperties(propriedadePontuacao);
+    }
 }
 
