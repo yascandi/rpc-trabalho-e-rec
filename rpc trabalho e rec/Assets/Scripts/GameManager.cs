@@ -69,5 +69,31 @@ public class GameManager : MonoBehaviourPunCallbacks
             StopCoroutine(TimerCoroutine()); // para o contador de tempo
         }
     }
+
+    [PunRPC]
+    public void TerminarJogo() // método que finaliza o jogo
+    {
+        ehGameOver = true; // marca o jogo como finalizado
+
+        FindObjectsByType<TankController>(FindObjectsSortMode.None).ToList().ForEach(tanque =>
+        {
+            if (tanque.photonView.IsMine)
+            {
+                PhotonNetwork.Destroy(tanque.gameObject); // destrói o tanque
+            }
+        });
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            FindFirstObjectByType<LobbyUIManager>().MostrarResultados();
+        }
+    }
+
+    void AtualizarTimerUI() // método que atualiza o cronômetro na UI
+    {
+        int minutos = Mathf.FloorToInt(tempoDePartidaAtual / 60);
+        int segundos = Mathf.FloorToInt(tempoDePartidaAtual % 60);
+        textTimer.text = string.Format("{0:00}:{1:00}", minutos, segundos);
+    }
 }
 
