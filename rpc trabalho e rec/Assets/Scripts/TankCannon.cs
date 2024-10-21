@@ -17,5 +17,19 @@ public class TankCannon : MonoBehaviourPun, IShootable
         var bala = PhotonNetwork.Instantiate("BalaPrefab", LocalizacaoSaidaBala.transform.position, LocalizacaoSaidaBala.transform.rotation);
         bala.GetComponent<BulletController>().Inicializar(GetComponentInParent<TankController>().gameObject);
     }
+
+    void Update()
+    {
+        frequenciaBalaAtual += Time.deltaTime;  // conta o tempo de carregamento da bala
+
+        if (photonView.IsMine) // verifica se "sou eu" quem está atirando
+        {
+            // checa se a tecla de espaço foi pressionada e se o tanque já está pronto para atirar
+            if (Input.GetKeyDown(KeyCode.Space) && frequenciaBalaAtual > frequenciaBala)
+            {
+                Shoot(); // chama o método para atirar a bala
+            }
+        }
+    }
 }
 
