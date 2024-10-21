@@ -67,7 +67,7 @@ public class BulletController : MonoBehaviourPun
             if (photonView.IsMine)
             {
                 // Adiciona ponto para o jogador
-                FindObjectOfType<PontuacaoManager>().AdicionarPontuacao(PhotonNetwork.LocalPlayer);
+                FindObjectOfType<ScoreManager>().AdicionarPontuacao(PhotonNetwork.LocalPlayer);
             }
         }
         AutoDestruir();
