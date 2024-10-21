@@ -28,4 +28,22 @@ public class BulletController : MonoBehaviourPun
         // Conta o tempo que a bala está "viva"
         ContabilizarTempoDeVida();
     }
+
+
+    void MoveBala()
+    {
+        // Move a bala
+        transform.Translate(Vector3.right * velocidade * Time.deltaTime);
+    }
+
+    void ContabilizarTempoDeVida()
+    {
+        // Atualiza o tempo de vida da bala
+        tempoDeVidaAtual += Time.deltaTime;
+        if (tempoDeVidaAtual > tempoDeVida)
+        {
+            // Quando o tempo acabar, destrói a bala
+            AutoDestruir();
+        }
+    }
 }
