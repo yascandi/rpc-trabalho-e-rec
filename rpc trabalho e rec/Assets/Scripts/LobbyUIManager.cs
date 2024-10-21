@@ -70,5 +70,45 @@ public class LobbyUIManager : MonoBehaviourPunCallbacks
             photonView.RPC("RecomecarPartidaParaTodos", RpcTarget.All);
         }
     }
+    [PunRPC]
+    public void IniciarPartidaParaTodos()
+    {
+        // Esconde o texto e o botão porque a partida está prestes a começar
+        textStatus.gameObject.SetActive(false);
+        buttonIniciarPartida.gameObject.SetActive(false);
+
+        // Busca o GameManager e inicia a partida
+        var gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        gameManager.IniciarPartida();
+    }
+
+    public void MostrarResultados()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            // Mostra o botão de recomeçar a partida
+            buttonRecomecarPartida.gameObject.SetActive(true);
+        }
+    }
+
+    [PunRPC]
+    public void RecomecarPartidaParaTodos()
+    {
+        // Esconde tudo porque a partida vai reiniciar
+        textStatus.gameObject.SetActive(false);
+        buttonIniciarPartida.gameObject.SetActive(false);
+        buttonRecomecarPartida.gameObject.SetActive(false);
+
+        // Busca o GameManager e reinicia a partida
+        var gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        gameManager.IniciarPartida();
+    }
+
+    // Chamado automaticamente pelo PhotonPun quando o host muda (ex.: se o criador sair da sala)
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        // Atualiza a interface
+        AtualizarUI();
+    }
 }
 
