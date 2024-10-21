@@ -61,7 +61,7 @@ public class BulletController : MonoBehaviourPun
         if (damageable != null)
         {
             // Aplica o dano ao objeto que pode receber dano
-            damageable.ReceberDano();
+            damageable.TakeDamage();
 
             // Se a bala for "minha" (do jogador atual), adiciona um ponto ao acertar
             if (photonView.IsMine)
