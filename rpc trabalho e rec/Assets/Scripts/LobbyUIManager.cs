@@ -27,5 +27,48 @@ public class LobbyUIManager : MonoBehaviourPunCallbacks
     }
 
     // Atualiza a interface
+    public void AtualizarUI()
+    {
+        // Checa se sou o host da partida (normalmente quem cria a sala)
+        if (PhotonNetwork.IsMasterClient)
+        {
+            // Mostra o botão de iniciar a partida, porque só o host pode fazer isso
+            buttonIniciarPartida.gameObject.SetActive(true);
+
+            // Esconde o texto de status da partida
+            textStatus.gameObject.SetActive(false);
+        }
+        else
+        {
+            // Esconde o botão de iniciar a partida, porque só o host pode
+            buttonIniciarPartida.gameObject.SetActive(false);
+
+            // Mostra o texto de status da partida
+            textStatus.gameObject.SetActive(true);
+            textStatus.text = "Aguardando o dono da sala iniciar a partida";
+        }
+    }
+
+    // Chamado ao clicar no botão de iniciar a partida
+    public void OnClickButtonIniciarPartida()
+    {
+        // Verifica se sou o host e inicia a partida para todos na sala
+        if (PhotonNetwork.IsMasterClient)
+        {
+            // Envia uma mensagem para todos que a partida vai começar
+            photonView.RPC("IniciarPartidaParaTodos", RpcTarget.All);
+        }
+    }
+
+    // Chamado ao clicar no botão de reiniciar a partida
+    public void OnClickButtonRecomecarPartida()
+    {
+        // Verifica se sou o host e reinicia a partida para todos na sala
+        if (PhotonNetwork.IsMasterClient)
+        {
+            // Envia uma mensagem para todos que a partida vai ser reiniciada
+            photonView.RPC("RecomecarPartidaParaTodos", RpcTarget.All);
+        }
+    }
 }
 
