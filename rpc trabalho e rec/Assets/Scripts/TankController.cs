@@ -1,6 +1,5 @@
 using ExitGames.Client.Photon;
 using Photon.Pun;
-using Photon.Pun.Demo.PunBasics;
 using UnityEngine;
 
 public class TankController : MonoBehaviourPun, IDamageable
@@ -60,7 +59,6 @@ public class TankController : MonoBehaviourPun, IDamageable
         var localizacaoSpawn1 = FindFirstObjectByType<GameManager>().ObterLocalizacaoSpawn(photonView.Owner);
 
         transform.position = localizacaoSpawn1.transform.position; // define a posição do tanque para o respawn
-
         transform.rotation = localizacaoSpawn1.transform.rotation; // define a rotação do tanque para o respawn
     }
 }
